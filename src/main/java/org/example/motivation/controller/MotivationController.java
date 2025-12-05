@@ -107,7 +107,6 @@ public class MotivationController {
         // 제대로 찾아서 리스트에서 값 삭제
         motivList.remove(foundMotivation);
         System.out.println(id + "번 motivInfo 삭제 완료");
-
     }
 
     public void edit(String cmd) {
@@ -132,14 +131,13 @@ public class MotivationController {
             }
         }
 
-
         // 만약 없는 객체를 찾아서 found 가 널값이면
         if (foundMotivation == null) {
             System.out.println("motiveList 에 존재하지 않는 motivInfo");
             return;
         }
 
-        // 제대로 찾아서 리스트에서 값 수정
+        // 제대로 찾아서 setter 로 값 수정
         System.out.print("motivation : ");
         String editMotiv = sc.nextLine();
         foundMotivation.setMotivation(editMotiv);
@@ -151,6 +149,39 @@ public class MotivationController {
         System.out.println(id + "번 motivInfo 수정 완료");
 
 
+    }
+
+    public void detail(String cmd) {
+        String[] cmdBits = cmd.split(" ");
+        int id = Integer.parseInt(cmdBits[1]);
+
+        //명령어 잘못 입력 < del 이랑 똑같은 오류
+        if (cmdBits.length == 1) {
+            System.out.println("명령어 확인 후 재작성");
+            return;
+        }
+
+        // 클래스에 found 객체 널값으로 생성
+        MotivAdd foundMotivation = null;
+
+        // 클래스의 객체를 : 객체가 들어있는 배열 순회해서 찾기
+        for (MotivAdd motivInfo : motivList) {
+            // 그 객체가 아이디 값을 가지고 있다면 found 객체에 아이디 값을 가진 주소를 넣고 나오기
+            if (motivInfo.getId() == id) {
+                foundMotivation = motivInfo;
+                break;
+            }
+        }
+
+        // 만약 없는 객체를 찾아서 found 가 널값이면
+        if (foundMotivation == null) {
+            System.out.println("motiveList 에 존재하지 않는 motivInfo");
+            return;
+        }
+        // getter 를 사용해 정보 가져오기
+        System.out.println("번호 : " + foundMotivation.getId());
+        System.out.println("source : " + foundMotivation.getSource());
+        System.out.println("motivation : " + foundMotivation.getMotivation());
     }
 }
 

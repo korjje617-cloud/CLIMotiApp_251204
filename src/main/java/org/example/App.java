@@ -54,9 +54,13 @@ public class App {
             else if(cmd.startsWith("edit")){
                 motivationController.edit(cmd);
 
+            }// "detail" > 상세보기
+            else if(cmd.startsWith("detail")){
+                motivationController.detail(cmd);
+
             } // 명령어 외 일괄
             else {
-                System.out.println("[사용 가능 명령어]\n1. add (추가하기)\n2. list (목록조회)\n3. del (삭제하기)\n4. eidt (삭제하기)\n5. exit (종료하기)\n");
+                System.out.println("[사용 가능 명령어]\n1. add (추가하기)\n2. list (목록조회)\n3. del (삭제하기)\n4. edit (수정하기)\n5. detail (상세보기)\n6. exit (종료하기)\n");
             }
         }
     }
