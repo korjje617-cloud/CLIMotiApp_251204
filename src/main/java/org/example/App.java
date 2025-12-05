@@ -28,10 +28,7 @@ public class App {
 
             // 명령어 입력
             System.out.print("명령어 ) ");
-            // 일반 명령어
             String cmd = sc.nextLine().trim();
-
-            //굳이 여기서 나눠줄 필요 없이 시작하는 단어만 구분해서 컨트롤러 쪽으로 넘기기
 
             // "exit" > 종료
             if (cmd.equals("exit")) {
@@ -39,7 +36,8 @@ public class App {
                 break;
             } else if(cmd.length() == 0){
                 System.out.println("명령어를 작성하세요.\n");
-            } // 여기 중괄호 하나 없었다
+                continue;
+            }
 
             // "add" > 모티베이션, 출처
             if (cmd.equals("add")) {

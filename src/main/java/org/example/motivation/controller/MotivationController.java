@@ -66,8 +66,6 @@ public class MotivationController {
             // 만약 source 길이가 너무 길면 0번째에서 5번째까지 줄이기
             if (motivInfo.getSource().length() > 5 && motivInfo.getMotivation().length() > 9) {
                 System.out.printf("%d     /     %s     /     %s     \n", motivInfo.getId(), motivInfo.getSource().substring(0, 5)+"..", motivInfo.getMotivation().substring(0, 9)+"..");
-            } else {
-                System.out.printf("%d     /     %s     /     %s     \n", motivInfo.getId(), motivInfo.getSource(), motivInfo.getMotivation());
             }
             // 배열이름.배열 내 변수 이름 이지만
             //getter 메서드를 꺼내오는 거니까 메서드실행() 형식으로
@@ -82,7 +80,7 @@ public class MotivationController {
         String[] cmdBits = cmd.split(" ");
         int id = Integer.parseInt(cmdBits[1]);
 
-        //명령어 잘못 입력 < 이거 오류
+        //명령어 잘못 입력 < 오류 : del, del1...
         if (cmdBits.length == 1) {
             System.out.println("명령어 확인 후 재작성");
             return;
@@ -93,7 +91,7 @@ public class MotivationController {
 
         // 클래스의 객체를 : 배열 순회해서 찾기
         for (MotivAdd motivInfo : motivList) {
-            // 그 객체가 아이디를 가지고 있다면 found 객체에 값 넣기
+            // 그 객체가 아이디를 가지고 있다면 found 객체에 값 넣고 나오기
             if (motivInfo.getId() == id) {
                 foundMotivation = motivInfo;
                 break;
@@ -112,9 +110,46 @@ public class MotivationController {
 
     }
 
-    public void edit(String input) {
-        String[] inputNum = input.split(" ");
-        int id = Integer.parseInt(inputNum[1]);
+    public void edit(String cmd) {
+        String[] cmdBits = cmd.split(" ");
+        int id = Integer.parseInt(cmdBits[1]);
+
+        //명령어 잘못 입력 < del 이랑 똑같은 오류
+        if (cmdBits.length == 1) {
+            System.out.println("명령어 확인 후 재작성");
+            return;
+        }
+
+        // 클래스에 found 객체 널값으로 생성
+        MotivAdd foundMotivation = null;
+
+        // 클래스의 객체를 : 객체가 들어있는 배열 순회해서 찾기
+        for (MotivAdd motivInfo : motivList) {
+            // 그 객체가 아이디 값을 가지고 있다면 found 객체에 아이디 값을 가진 주소를 넣고 나오기
+            if (motivInfo.getId() == id) {
+                foundMotivation = motivInfo;
+                break;
+            }
+        }
+
+
+        // 만약 없는 객체를 찾아서 found 가 널값이면
+        if (foundMotivation == null) {
+            System.out.println("motiveList 에 존재하지 않는 motivInfo");
+            return;
+        }
+
+        // 제대로 찾아서 리스트에서 값 수정
+        System.out.print("motivation : ");
+        String editMotiv = sc.nextLine();
+        foundMotivation.setMotivation(editMotiv);
+
+        System.out.print("source : ");
+        String editSource = sc.nextLine();
+        foundMotivation.setSource(editSource);
+
+        System.out.println(id + "번 motivInfo 수정 완료");
+
 
     }
 }
