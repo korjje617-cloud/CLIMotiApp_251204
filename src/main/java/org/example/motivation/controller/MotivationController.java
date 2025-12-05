@@ -45,11 +45,6 @@ public class MotivationController {
         lastid ++;
     }
 
-
-
-
-
-
     public void list() {
         // 기본 상태
         System.out.println("=".repeat(50));
@@ -62,11 +57,9 @@ public class MotivationController {
         }
 
         // 입력된 게 있다면
-        // 처음은 for each 문 사용, 향상된 for문으로 순회할 배열이나 배열리스트 지정
-        // for (MotivAdd motivInfo : motivList) << for (타입 변수명 : 루프할 배열이나 배열리스트 이름)
-        // 하지만 desc 로 출력해야 하기 때문에 취소
-        // 리스트 맨 마지막 줄에서 0번째까지 출력하기
+        // 리스트 맨 마지막에서 0번째까지 출력하기
         for (int i = motivList.size() - 1; i >= 0; i--) {
+
             // 클래스 객체에서 = 배열에 있는 i번째 변수 꺼내오기
             MotivAdd motivInfo = motivList.get(i);
 
@@ -76,10 +69,20 @@ public class MotivationController {
             } else {
                 System.out.printf("%d     /     %s     /     %s     \n", motivInfo.getId(), motivInfo.getSource(), motivInfo.getMotivation());
             }
-            // 배열이름.배열 내 변수 이름 이었지만
+            // 배열이름.배열 내 변수 이름 이지만
             //getter 메서드를 꺼내오는 거니까 메서드실행() 형식으로
         }
 
         System.out.println("=".repeat(50));
+    }
+
+    public void del() {
+        System.out.println("del 실행 확인");
+
+    }
+
+    public void edit() {
+        System.out.println("edit 실행 확인");
+
     }
 }

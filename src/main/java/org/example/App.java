@@ -28,23 +28,45 @@ public class App {
 
             // 명령어 입력
             System.out.print("명령어 ) ");
+            // 일반 명령어
             String input = sc.nextLine().trim();
+
+            // 숫자 입력 시 공백으로 자르고 정수로 반환
+            if (input.contains("del ")) {
+                String[] inputNum = input.split(" ");
+                int numFor = Integer.parseInt(inputNum[1]);
+            } else if (input.contains("edit ")) {
+                String[] inputNum = input.split(" ");
+                int numFor = Integer.parseInt(inputNum[1]);
+            }
 
 
             // "exit" > 종료
             if (input.equals("exit")) {
                 systemController.exit();
                 break;
-            }
-            // "add" > 모티베이션, 출처
+
+            } // "add" > 모티베이션, 출처
             if (input.equals("add")) {
                 motivationController.add();
+
             } // "list" > 목록
             else if (input.equals("list")) {
                 motivationController.list();
+
+
+            } // "del" > 삭제
+            else if(input.contains("del")){
+                motivationController.del();
+
+            }// "edit" > 수정
+            else if(input.contains("edit")){
+                motivationController.edit();
+
+
             } // 명령어 외 일괄
             else {
-                System.out.println("[사용 가능 명령어]\n1. add (추가하기)\n2. list (목록조회)\n3. exit (종료하기)");
+                System.out.println("[사용 가능 명령어]\n1. add (추가하기)\n2. list (목록조회)\n3. del (삭제하기)\n4. eidt (삭제하기)\n5. exit (종료하기)");
             }
         }
     }
