@@ -54,6 +54,7 @@ public class MotivationController {
         // 입력된 게 없다면
         if (motivList.isEmpty()) {
             System.out.println("등록 없음");
+            return;
         }
 
         // 입력된 게 있다면
@@ -63,10 +64,14 @@ public class MotivationController {
             // 클래스 객체에서 = 배열에 있는 i번째 변수 꺼내오기
             MotivAdd motivInfo = motivList.get(i);
 
-            // 만약 source 길이가 너무 길면 0번째에서 5번째까지 줄이기
-            if (motivInfo.getSource().length() > 5 && motivInfo.getMotivation().length() > 9) {
-                System.out.printf("%d     /     %s     /     %s     \n", motivInfo.getId(), motivInfo.getSource().substring(0, 5)+"..", motivInfo.getMotivation().substring(0, 9)+"..");
+            // 만약 source 길이가 너무 길면 줄이기
+            if (motivInfo.getSource().length() > 5) {
+                System.out.printf("%d     /     %s     /     %s     \n", motivInfo.getId(), motivInfo.getSource().substring(0, 5)+"..", motivInfo.getMotivation());
+                continue;
             }
+
+            System.out.printf("%d     /     %s     /     %s     \n", motivInfo.getId(), motivInfo.getSource(), motivInfo.getMotivation());
+
             // 배열이름.배열 내 변수 이름 이지만
             //getter 메서드를 꺼내오는 거니까 메서드실행() 형식으로
         }
@@ -78,13 +83,14 @@ public class MotivationController {
 
     public void del(String cmd) {
         String[] cmdBits = cmd.split(" ");
-        int id = Integer.parseInt(cmdBits[1]);
 
-        //명령어 잘못 입력 < 오류 : del, del1...
+        //명령어 잘못 입력시 < 오류 : del, del1...
         if (cmdBits.length == 1) {
             System.out.println("명령어 확인 후 재작성");
             return;
         }
+
+        int id = Integer.parseInt(cmdBits[1]);
 
         // 클래스에 found 객체 널값으로 생성
         MotivAdd foundMotivation = null;
@@ -111,13 +117,14 @@ public class MotivationController {
 
     public void edit(String cmd) {
         String[] cmdBits = cmd.split(" ");
-        int id = Integer.parseInt(cmdBits[1]);
 
-        //명령어 잘못 입력 < del 이랑 똑같은 오류
+        //명령어 잘못 입력시 < 오류 : del, del1...
         if (cmdBits.length == 1) {
             System.out.println("명령어 확인 후 재작성");
             return;
         }
+
+        int id = Integer.parseInt(cmdBits[1]);
 
         // 클래스에 found 객체 널값으로 생성
         MotivAdd foundMotivation = null;
@@ -153,13 +160,14 @@ public class MotivationController {
 
     public void detail(String cmd) {
         String[] cmdBits = cmd.split(" ");
-        int id = Integer.parseInt(cmdBits[1]);
 
-        //명령어 잘못 입력 < del 이랑 똑같은 오류
+        //명령어 잘못 입력시 < 오류 : del, del1...
         if (cmdBits.length == 1) {
             System.out.println("명령어 확인 후 재작성");
             return;
         }
+
+        int id = Integer.parseInt(cmdBits[1]);
 
         // 클래스에 found 객체 널값으로 생성
         MotivAdd foundMotivation = null;
@@ -178,6 +186,7 @@ public class MotivationController {
             System.out.println("motiveList 에 존재하지 않는 motivInfo");
             return;
         }
+
         // getter 를 사용해 정보 가져오기
         System.out.println("번호 : " + foundMotivation.getId());
         System.out.println("source : " + foundMotivation.getSource());

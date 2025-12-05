@@ -2,12 +2,14 @@ package org.example;
 
 import org.example.motivation.controller.MotivationController;
 import org.example.system.controller.SystemController;
+
 import java.util.Scanner;
 
 public class App {
 
     //스캐너 사용
     private Scanner sc;
+
     public App(Scanner sc) {
         this.sc = sc;
     }
@@ -19,7 +21,7 @@ public class App {
 
         // 각 클래스의 생성자 실행, 인자는 스캐너
         // Main 에서 App으로, 그리고 각 클래스로 스캐너 전달
-        SystemController systemController = new SystemController(sc);
+        SystemController systemController = new SystemController();
         MotivationController motivationController = new MotivationController(sc);
 
 
@@ -34,7 +36,8 @@ public class App {
             if (cmd.equals("exit")) {
                 systemController.exit();
                 break;
-            } else if(cmd.length() == 0){
+            } // 명령어 미입력시
+            else if(cmd.length() == 0){
                 System.out.println("명령어를 작성하세요.\n");
                 continue;
             }
