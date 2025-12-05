@@ -22,15 +22,17 @@ public class MotivationController {
         this.sc = sc;
     }
 
-    public void add() {
+    public void doAdd() {
         // 일단 첫번째 등록
         int id = lastid + 1;
 
         System.out.print("motivation : ");
-        String motivation = sc.nextLine();
+        String motivation = sc.nextLine().trim();
 
         System.out.print("source : ");
-        String source = sc.nextLine();
+        String source = sc.nextLine().trim();
+
+
 
         // 클래스로 객체 생성하고 입력된 값을 생성자를 사용해 자동 `조립`
         MotivAdd motivInfo = new MotivAdd(id, motivation, source);
@@ -45,7 +47,7 @@ public class MotivationController {
         lastid ++;
     }
 
-    public void list() {
+    public void showList() {
         // 기본 상태
         System.out.println("=".repeat(50));
         System.out.println("번호    /     source     /     motivation");
@@ -81,7 +83,7 @@ public class MotivationController {
 
     // 이 밑은 명령어를 받아서 배열을 건드려야 하기 때문에 cmd 자체를 매개변수로 받는다
 
-    public void del(String cmd) {
+    public void doDel(String cmd) {
         String[] cmdBits = cmd.split(" ");
 
         //명령어 잘못 입력시 < 오류 : del, del1...
@@ -92,17 +94,11 @@ public class MotivationController {
 
         int id = Integer.parseInt(cmdBits[1]);
 
-        // 클래스에 found 객체 널값으로 생성
+        // 클래스에 found~ 객체 널값으로 생성
         MotivAdd foundMotivation = null;
 
-        // 클래스의 객체를 : 배열 순회해서 찾기
-        for (MotivAdd motivInfo : motivList) {
-            // 그 객체가 아이디를 가지고 있다면 found 객체에 값 넣고 나오기
-            if (motivInfo.getId() == id) {
-                foundMotivation = motivInfo;
-                break;
-            }
-        }
+        // 리스트를 순회해서 찾은 값을 found~ 객체에 넣는 과정을 findById 메서드에게 넘기기
+        foundMotivation = findById(id);
 
         // 만약 없는 객체를 찾아서 found 가 널값이면
         if (foundMotivation == null) {
@@ -115,7 +111,7 @@ public class MotivationController {
         System.out.println(id + "번 motivInfo 삭제 완료");
     }
 
-    public void edit(String cmd) {
+    public void doEdit(String cmd) {
         String[] cmdBits = cmd.split(" ");
 
         //명령어 잘못 입력시 < 오류 : del, del1...
@@ -129,14 +125,8 @@ public class MotivationController {
         // 클래스에 found 객체 널값으로 생성
         MotivAdd foundMotivation = null;
 
-        // 클래스의 객체를 : 객체가 들어있는 배열 순회해서 찾기
-        for (MotivAdd motivInfo : motivList) {
-            // 그 객체가 아이디 값을 가지고 있다면 found 객체에 아이디 값을 가진 주소를 넣고 나오기
-            if (motivInfo.getId() == id) {
-                foundMotivation = motivInfo;
-                break;
-            }
-        }
+        // 리스트를 순회해서 찾은 값을 found~ 객체에 넣는 과정을 findById 메서드에게 넘기기
+        foundMotivation = findById(id);
 
         // 만약 없는 객체를 찾아서 found 가 널값이면
         if (foundMotivation == null) {
@@ -158,7 +148,7 @@ public class MotivationController {
 
     }
 
-    public void detail(String cmd) {
+    public void showDetail(String cmd) {
         String[] cmdBits = cmd.split(" ");
 
         //명령어 잘못 입력시 < 오류 : del, del1...
@@ -166,20 +156,14 @@ public class MotivationController {
             System.out.println("명령어 확인 후 재작성");
             return;
         }
-
+        // 정수 id 에 cmdBits[1] 에 있는 값을 정수로 반환해서 넣기
         int id = Integer.parseInt(cmdBits[1]);
 
         // 클래스에 found 객체 널값으로 생성
         MotivAdd foundMotivation = null;
 
-        // 클래스의 객체를 : 객체가 들어있는 배열 순회해서 찾기
-        for (MotivAdd motivInfo : motivList) {
-            // 그 객체가 아이디 값을 가지고 있다면 found 객체에 아이디 값을 가진 주소를 넣고 나오기
-            if (motivInfo.getId() == id) {
-                foundMotivation = motivInfo;
-                break;
-            }
-        }
+        // 리스트를 순회해서 찾은 값을 found~ 객체에 넣는 과정을 findById 메서드에게 넘기기
+        foundMotivation = findById(id);
 
         // 만약 없는 객체를 찾아서 found 가 널값이면
         if (foundMotivation == null) {
@@ -188,11 +172,22 @@ public class MotivationController {
         }
 
         // getter 를 사용해 정보 가져오기
+        System.out.println("---detail---");
         System.out.println("번호 : " + foundMotivation.getId());
         System.out.println("source : " + foundMotivation.getSource());
         System.out.println("motivation : " + foundMotivation.getMotivation());
     }
+
+    private MotivAdd findById(int id) {
+        // 클래스의 객체를 : 배열 순회해서 찾기
+        for (MotivAdd motivInfo : motivList) {
+            // 그 객체가 아이디를 가지고 있다면 found~ 객체에 아이디를 가진 객체 주소값 넣고 나오기
+            if (motivInfo.getId() == id) {
+                return motivInfo;
+            }
+        } return null;
+    }
+
 }
 
-
-
+// doEdit, doAdd 에 널값이나 공백 있을 시 다시 입력하라는 주의문 필요함

@@ -44,22 +44,22 @@ public class App {
 
             // "add" > 모티베이션, 출처
             if (cmd.equals("add")) {
-                motivationController.add();
+                motivationController.doAdd();
             } // "list" > 목록
             else if (cmd.equals("list")) {
-                motivationController.list();
+                motivationController.showList();
 
             } // "del" > 삭제
             else if(cmd.startsWith("del")){
-                motivationController.del(cmd);
+                motivationController.doDel(cmd);
 
             }// "edit" > 수정
             else if(cmd.startsWith("edit")){
-                motivationController.edit(cmd);
+                motivationController.doEdit(cmd);
 
             }// "detail" > 상세보기
             else if(cmd.startsWith("detail")){
-                motivationController.detail(cmd);
+                motivationController.showDetail(cmd);
 
             } // 명령어 외 일괄
             else {
