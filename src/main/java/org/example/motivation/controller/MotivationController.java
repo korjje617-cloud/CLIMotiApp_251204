@@ -11,7 +11,7 @@ public class MotivationController {
     // add 하나 추가할 때마다 증가
     int lastid = 0;
 
-    // 클래스를 정해진 타입으로 사용하는 동적 타입인 배열 리스트 객체
+    // 클래스를 정해진 타입으로 사용하는 동적 타입인 배열 리스트 객체 (저장소)
     // while 문에 들어가면 한번 반복될 때 마다 초기화 되기 때문에 반복문 밖에 있다
     List<MotivAdd> motivList = new ArrayList<>();
 
@@ -76,13 +76,48 @@ public class MotivationController {
         System.out.println("=".repeat(50));
     }
 
-    public void del() {
-        System.out.println("del 실행 확인");
+    // 이 밑은 명령어를 받아서 배열을 건드려야 하기 때문에 cmd 자체를 매개변수로 받는다
+
+    public void del(String cmd) {
+        String[] cmdBits = cmd.split(" ");
+        int id = Integer.parseInt(cmdBits[1]);
+
+        //명령어 잘못 입력 < 이거 오류
+        if (cmdBits.length == 1) {
+            System.out.println("명령어 확인 후 재작성");
+            return;
+        }
+
+        // 클래스에 found 객체 널값으로 생성
+        MotivAdd foundMotivation = null;
+
+        // 클래스의 객체를 : 배열 순회해서 찾기
+        for (MotivAdd motivInfo : motivList) {
+            // 그 객체가 아이디를 가지고 있다면 found 객체에 값 넣기
+            if (motivInfo.getId() == id) {
+                foundMotivation = motivInfo;
+                break;
+            }
+        }
+
+        // 만약 없는 객체를 찾아서 found 가 널값이면
+        if (foundMotivation == null) {
+            System.out.println("motiveList 에 존재하지 않는 motivInfo");
+            return;
+        }
+
+        // 제대로 찾아서 리스트에서 값 삭제
+        motivList.remove(foundMotivation);
+        System.out.println(id + "번 motivInfo 삭제 완료");
 
     }
 
-    public void edit() {
-        System.out.println("edit 실행 확인");
+    public void edit(String input) {
+        String[] inputNum = input.split(" ");
+        int id = Integer.parseInt(inputNum[1]);
 
     }
 }
+
+
+
