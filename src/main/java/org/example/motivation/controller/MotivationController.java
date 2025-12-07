@@ -25,14 +25,29 @@ public class MotivationController {
     public void doAdd() {
         // 일단 첫번째 등록
         int id = lastid + 1;
+        String motivation = "";
+        String source = "";
 
-        System.out.print("motivation : ");
-        String motivation = sc.nextLine().trim();
+        // 입력 될 때 까지 붙잡기
+        while (true) {
+            System.out.print("motivation : ");
+            motivation = sc.nextLine().trim();
 
-        System.out.print("source : ");
-        String source = sc.nextLine().trim();
+            if (motivation.length() != 0) {
+                break;
+            }
+            System.out.println("motivation을 입력하세요");
+        }
 
+        while (true) {
+            System.out.print("source : ");
+            source = sc.nextLine().trim();
 
+            if (source.length() != 0) {
+                break;
+            }
+            System.out.println("source를 입력하세요");
+        }
 
         // 클래스로 객체 생성하고 입력된 값을 생성자를 사용해 자동 `조립`
         MotivAdd motivInfo = new MotivAdd(id, motivation, source);
@@ -86,7 +101,7 @@ public class MotivationController {
     public void doDel(String cmd) {
         String[] cmdBits = cmd.split(" ");
 
-        //명령어 잘못 입력시 < 오류 : del, del1...
+        //명령어 잘못 입력시
         if (cmdBits.length == 1) {
             System.out.println("명령어 확인 후 재작성");
             return;
@@ -114,7 +129,7 @@ public class MotivationController {
     public void doEdit(String cmd) {
         String[] cmdBits = cmd.split(" ");
 
-        //명령어 잘못 입력시 < 오류 : del, del1...
+        //명령어 잘못 입력시
         if (cmdBits.length == 1) {
             System.out.println("명령어 확인 후 재작성");
             return;
@@ -134,24 +149,41 @@ public class MotivationController {
             return;
         }
 
-        // 제대로 찾아서 setter 로 값 수정
-        System.out.print("motivation : ");
-        String editMotiv = sc.nextLine();
-        foundMotivation.setMotivation(editMotiv);
+        // 기존 내용 표시
+        System.out.println("motiv(기존) : " + foundMotivation.getMotivation());
+        System.out.println("source(기존) : " + foundMotivation.getSource());
 
-        System.out.print("source : ");
-        String editSource = sc.nextLine();
-        foundMotivation.setSource(editSource);
+        // 제대로 찾아서 setter 로 값 수정
+        // 입력 될 때 까지 붙잡기
+        while (true) {
+            System.out.print("motivation : ");
+            String editMotiv = sc.nextLine().trim();
+            foundMotivation.setMotivation(editMotiv);
+
+            if (editMotiv.length() != 0) {
+                break;
+            }
+            System.out.println("motivation 수정 사항을 입력하세요");
+        }
+        while (true) {
+            System.out.print("source : ");
+            String editSource = sc.nextLine().trim();
+            foundMotivation.setSource(editSource);
+
+            if (editSource.length() != 0) {
+                break;
+            }
+            System.out.println("source 수정 사항을 입력하세요");
+        }
 
         System.out.println(id + "번 motivInfo 수정 완료");
-
 
     }
 
     public void showDetail(String cmd) {
         String[] cmdBits = cmd.split(" ");
 
-        //명령어 잘못 입력시 < 오류 : del, del1...
+        //명령어 잘못 입력시
         if (cmdBits.length == 1) {
             System.out.println("명령어 확인 후 재작성");
             return;
@@ -176,6 +208,7 @@ public class MotivationController {
         System.out.println("번호 : " + foundMotivation.getId());
         System.out.println("source : " + foundMotivation.getSource());
         System.out.println("motivation : " + foundMotivation.getMotivation());
+        System.out.println("------------");
     }
 
     private MotivAdd findById(int id) {
@@ -189,5 +222,3 @@ public class MotivationController {
     }
 
 }
-
-// doEdit, doAdd 에 널값이나 공백 있을 시 다시 입력하라는 주의문 필요함
